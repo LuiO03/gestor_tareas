@@ -1,0 +1,11 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 1200px;
+    background-color: aquamarine;
+}

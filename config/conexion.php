@@ -15,8 +15,6 @@
             }
         }
     }
-    $objeto = new db();
-    print_r($objeto->conectar());
 
 
 ?>

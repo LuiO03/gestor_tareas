@@ -9,7 +9,7 @@ class TareaModel {
         $this->PDO = $conn->conectar();
     }
 
-    public function insertar($nombre) {
+    public function crear($nombre) {
         try {
             $stmt = $this->PDO->prepare("INSERT INTO tareas (nombre_tarea) VALUES (:nombre_tarea)");
             $stmt->bindParam(":nombre_tarea", $nombre);
@@ -47,8 +47,7 @@ class TareaModel {
         }
     }
 
-
-    public function listar() {
+    public function obtenerTodas() {
         try {
             $stmt = $this->PDO->prepare("SELECT * FROM tareas ORDER BY id DESC");
             $stmt->execute();
@@ -63,5 +62,32 @@ class TareaModel {
         }
     }
 
+    public function actualizar($id, $nombre){
+        try {
+            $stmt = $this->PDO->prepare("UPDATE tareas SET nombre_tarea = :nombre_tarea WHERE id = :id");
+            $stmt->bindParam(":nombre_tarea", $nombre);
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $id;
+        } catch (\Throwable $e) {
+            error_log(
+                date('Y-m-d H:i:s') . " - Error en actualizar() tareas: " . $e->getMessage() . "\n",
+                3,
+                __DIR__ . '/../logs/error.log'
+            );
+            return false;
+        }
+    }
+
+    public function eliminar($id) {
+        try {
+            $stmt = $this->PDO->prepare("DELETE FROM tareas WHERE id = :id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log(date('Y-m-d H:i:s') . " - Error en eliminar() tarea: " . $e->getMessage() . "\n", 3, __DIR__ . '/../logs/error.log');
+            return false;
+        }
+    }
 }
 ?>

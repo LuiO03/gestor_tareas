@@ -2,8 +2,8 @@
     require_once(__DIR__ . "/view/templates/header.php")
 ?>
 
-<a href="" class="btn btn-success">
-    Agregar nueva tarea
+<a href="view/tareas/index.php" class="btn btn-success">
+    Ver tareas
 </a>
 
 <?php
